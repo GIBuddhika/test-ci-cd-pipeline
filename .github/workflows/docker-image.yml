@@ -6,7 +6,7 @@ on:
 
 jobs:
   login:
-    runs-on: ubuntu-latest
+    runs-on: docker:20.10.8
     steps:
       -
         name: Login to Quay.io

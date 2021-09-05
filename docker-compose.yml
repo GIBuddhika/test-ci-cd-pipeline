@@ -17,6 +17,8 @@ services:
             dockerfile: ./app.Dockerfile
             args:
                 UID: $UID
+            cache_from:
+                - ishanbuddhika/app:hot
         volumes:
             - $APP_VOLUMES_SRC:/var/www/html/
             - ./vols/app/docker-user-home/:/home/www-data/

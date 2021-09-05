@@ -1,7 +1,9 @@
 FROM php:8.0.2-fpm-alpine3.13
 ARG UID
 RUN apk --update add shadow
-RUN adduser -D -H -u 1000 -s /bin/bash www-data
+RUN set -x ; \
+  addgroup -g 82 -S www-data ; \
+  adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
 RUN usermod -u $UID www-data && groupmod -g $UID www-data
 RUN apk --update add sudo
 RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers

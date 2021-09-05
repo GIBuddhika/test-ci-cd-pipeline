@@ -13,6 +13,21 @@ jobs:
     runs-on: docker:20.10.8
 
     steps:
+
+    - uses: docker/login-action@v1
+    - name: Login to Docker Hub
+      with:
+        registry: <registry-name>.azurecr.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - run: docker pull $CI_REGISTRY_IMAGE/app:hot || true
+    - run: docker-compose build
+    - run: docker tag app:latest $CI_REGISTRY_IMAGE/app:$CI_COMMIT_TAG
+    - run: docker tag app:latest $CI_REGISTRY_IMAGE/app:hot
+    - run: docker images
+    - run: docker push $CI_REGISTRY_IMAGE/app:$CI_COMMIT_TAG
+    - run: docker push $CI_REGISTRY_IMAGE/app:hot
+

@@ -17,8 +17,6 @@ services:
             dockerfile: ./app.Dockerfile
             args:
                 UID: $UID
-            cache_from:
-                - https://hub.docker.com/repository/docker/ishanbuddhika/ci_cd_test:hot
         volumes:
             - $APP_VOLUMES_SRC:/var/www/html/
             - ./vols/app/docker-user-home/:/home/www-data/

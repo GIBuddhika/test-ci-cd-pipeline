@@ -18,7 +18,7 @@ jobs:
       - run: docker build . --file app.Dockerfile --tag app:$(date +%s)
       - run: docker pull ${{ secrets.DOCKER_REGISTRY }}/app:hot || true
       - run: docker-compose build
-      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/app:latest
+      - run: docker tag app:latest ishanbuddhika/app:latest
       - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/app:hot
       - run: docker images
       - run: docker push ${{ secrets.DOCKER_REGISTRY }}/app:latest

@@ -15,11 +15,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - uses: actions/checkout@v2
-      - run: docker build . --file app.Dockerfile --tag my-image-name:$(date +%s)
-      - run: docker pull ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot || true
+      - run: docker build . --file app.Dockerfile --tag app:$(date +%s)
+      - run: docker pull ${{ secrets.DOCKER_REGISTRY }}/app:hot || true
       - run: docker-compose build
-      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:latest
-      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot
+      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/app:latest
+      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/app:hot
       - run: docker images
-      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:latest
-      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot
+      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/app:latest
+      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/app:hot

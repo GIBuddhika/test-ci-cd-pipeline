@@ -18,7 +18,7 @@ services:
             args:
                 UID: $UID
             cache_from:
-                - ${{ secrets.DOCKER_REGISTRY }}/app:hot
+                - ishanbuddhika/app:hot
         volumes:
             - $APP_VOLUMES_SRC:/var/www/html/
             - ./vols/app/docker-user-home/:/home/www-data/

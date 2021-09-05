@@ -18,8 +18,8 @@ jobs:
       - run: docker build . --file app.Dockerfile --tag my-image-name:$(date +%s)
       - run: docker pull ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot || true
       - run: docker-compose build
-      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:=${GITHUB_REF#refs/heads/}
+      - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:${GITHUB_REF#refs/heads/}
       - run: docker tag app:latest ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot
       - run: docker images
-      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:=${GITHUB_REF#refs/heads/}
+      - run: docker push ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:${GITHUB_REF#refs/heads/}
       - run: docker push ${{ secrets.DOCKER_REGISTRY }}/ci_cd_test:hot
